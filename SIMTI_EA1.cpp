@@ -1,3 +1,4 @@
+/* Bibliotecas importadas para que el software duncione adecuadamente */
 #include <iostream>
 #include <string>
 #include <vector>

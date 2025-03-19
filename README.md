@@ -94,3 +94,77 @@ int opcion;
         }
     } while (opcion != 3);
 ```
+
+---
+
+### Reporte.
+
+---
+
+El objetivo de esta aplicación es adentrar a los futuros profesionales a los conceptos básicos del lenguaje de C++ y el paradigma de la programación estructurada.
+
+- Como principales tareas es identificar los tipos de datos primitivos y compuestos
+- Identificar estructuras de control como lo son condicionales o bucles
+- Conocer la estructura de una función
+- Identificar la función `main`
+- Familiarizarse con la biblioteca`iostream` y `string`
+
+#### Análisis del código original
+
+- El código original de la app se puede compilar y ejecutar de manera correcta y me permitió observar el comportamiento de un inventario que se utiliza para venta y reparación de equipo médico.
+
+- Primeramente, me propuse ordenar de una mejor manera el código antes de cambiar alguna de sus partes con la finalidad de que fuese más legible y por consiguiente, más fácil de manejar.
+
+- Como segunda encomienda me dispuse a ir identificando los tipos de datos, una vez identificados los tipos de datos me aboque a entender como podría cambiarlos para ser más eficiente en el manejo de la información.
+
+- La siguiente tarea fue observar que estructuras de control había en el proyecto para posteriormente encontrar una manera de optimizarlas y que tuvieran un mejor comportamiento.
+
+#### Implementación de mejoras
+
+- Los cambios se realizaron de manera sistemática, un cambio a la vez para después correr el código y observar si trabajaba de manera adecuada, debo señalar que fue desafiante enfrentar los errores de la salida de comandos por terminal.
+
+- El mayor reto fue manejar los condicionales y bucles para manejar las categorías, usé un bucle do while donde primero verifica si el usuario ingreso un número entre 1 y 7 si es así utiliza un método del objeto equipo para seleccionar la categoría adecuada desde la enumeración categorías.
+
+```C++
+ int categoriaSeleccionada;
+
+    do {
+
+        std::cout << "Ingrese una categoria (Del 01 al 07): ";
+
+        std::cin >> categoriaSeleccionada;
+
+        std::cin.ignore();
+
+    } while (categoriaSeleccionada < 1 || categoriaSeleccionada > 7);
+
+    equipo.categoria = static_cast<categorias>(categoriaSeleccionada);
+```
+
+- Realice cambios en el tipo de datos en casos donde considere que string era mejor opción que char para el manejo de cadena de caracteres.
+
+- Código original:
+
+```C++
+char descripcion[101];
+```
+
+- Código mejorado
+
+```C++
+std::string descripcion;
+```
+
+- Se cambió la propiedad de la estructura equipo atreves de una enumeración para el mejor manejo de las categorías de los artículos del inventario.
+
+- Use una función para transformar los valores enteros de la enumeración por cadenas de caracteres por medio de un switch en donde cada caso devolvía el string correspondiente a cada categoría.
+
+- Para agregar los datos de categoría ingresados por el usuario primero hice un bucle while que comprueba primero la condición si el usuario ingreso un dato numérico correcto y después lo guarda en la propiedad categorías de la estructura equipo.
+
+- Se respetó el código en la medida de lo posible.
+
+#### Conclusiones.
+
+Los cambios realizados se llevaron a cabo con la finalidad de darle legibilidad al código, eficiencia y mayor capacidad de escalabilidad hacia el futuro.
+
+En futuras versiones se agregará funcionalidad CRUD para que el sistema de inventario sea más robusto y versátil
