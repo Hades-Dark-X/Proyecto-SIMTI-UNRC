@@ -22,7 +22,7 @@ struct Equipo {
     int id_equipo;
     std::string descripcion;
     categorias categoria;
-    char estado[3];
+    std::string estado;
     std::string propietario;
     std::string fecha_compra;
     double valor;
@@ -85,7 +85,7 @@ void agregarEquipo() {
     std::cout << "FS: Fuera de Servicio." << std::endl;
     std::cout << "-------------------------" << std::endl;
     std::cout << "Ingrese el estado del equipo (OP, RE o FS): ";
-    std::cin.getline(equipo.estado, 3);
+    std::getline(std::cin, equipo.estado);
 
     std::cout << "Ingrese el propietario del equipo: ";
     std::getline(std::cin, equipo.propietario);
