@@ -17,7 +17,7 @@ enum categorias {
     dispositivosMedicosEspecializados
 };
 
-/* en este caso dicidi cambiar las propiedades del objeto Equipo: descripcion, categorias y propietario para un mejor manejo de los datos */
+/* en este caso decidi cambiar las propiedades del objeto Equipo: descripcion, categorias y propietario para un mejor manejo de los datos */
 struct Equipo {
     int id_equipo;
     std::string descripcion;
