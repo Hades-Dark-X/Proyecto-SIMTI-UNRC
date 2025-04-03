@@ -102,7 +102,7 @@ void agregarEquipo() {
     std::cout << "Equipo agregado al inventario correctamente." << std::endl;
 };
 
-void mostrarEquipoId(){
+void buscarEquipoId(){
     int buscarId;
     std::cout << "ingresa el id del equipo que desea buscar: ";
     std::cin >> buscarId;
@@ -181,17 +181,35 @@ void actualizarEquipo() {
             std::cin.ignore();
 
             std::cout << "Equipo actualizado correctamente." << std::endl;
-            return; // Salir de la función después de actualizar
+            return;
         }
     }
 
     std::cout << "No se encontro ningun equipo con el ID: " << actualizarId << std::endl;
 }
 
+void eliminarEquipo() {
+    int idEliminar;
+    std::cout << "Ingrese el ID del equipo que desea eliminar: ";
+    std::cin >> idEliminar;
+    std::cin.ignore();
+
+    for (auto it = inventario.begin(); it != inventario.end(); ++it) {
+        if (it->id_equipo == idEliminar) {
+            inventario.erase(it);
+            std::cout << "Equipo eliminado correctamente." << std::endl;
+            return;
+        }
+    }
+
+    std::cout << "No se encontro ningun equipo con el ID: " << idEliminar << std::endl;
+}
+
 void mostrarInventario() {
     if (inventario.empty()) {
         std::cout << "El inventario esta vacio." << std::endl;
     } else {
+        std::cout << "-------------------------" << std::endl;
         std::cout << "Inventario:" << std::endl;
         for (const auto& equipo : inventario) {
             std::cout << "ID: " << equipo.id_equipo << std::endl;
@@ -209,41 +227,56 @@ void mostrarInventario() {
 int main() {
     int opcion;
     do {
+        std::cout << "--------------------------" << std::endl;
         std::cout << "Sistema de Inventario MedTech Innovations" << std::endl;
+        std::cout << "--------------------------" << std::endl;
         std::cout << "1. Agregar equipo" << std::endl;
-        std::cout << "2. Actualizar Equipo" << std::endl;
+        std::cout << "2. Actualizar equipo" << std::endl;
         std::cout << "3. Eliminar equipo" << std::endl;
         std::cout << "4. Mostrar inventario" << std::endl;
-        std::cout << "5. Ayuda" << std::endl;
-        std::cout << "6. Salir" << std::endl;
+        std::cout << "5. Buscar equipo por ID" << std::endl;
+        std::cout << "6. Ayuda" << std::endl;
+        std::cout << "7. Salir" << std::endl;
         std::cout << "Ingrese una opcion: ";
         std::cin >> opcion;
 
-        /* proximamente se desarrollará el crud para mostar Equipo por ID, actualizar y eliminar al menu. */
+
         switch (opcion) {
             case 1:
                 agregarEquipo();
                 break;
             case 2:
-            actualizarEquipo();
+                actualizarEquipo();
                 break;
             case 3:
-            std::cout << "Eliminar Equipo esta en desarrollo... Finalizado software" << std::endl;
+                eliminarEquipo();
                 break;
             case 4:
                 mostrarInventario();
                     break;
             case 5:
-            std::cout << "Ayuda esta en desarrollo... Finalizado software" << std::endl;
+                buscarEquipoId();
                 break;
             case 6:
-                std::cout << "Saliendo del programa..." << std::endl;
+                std::cout << "Instruciones de uso" << std::endl;
+                std::cout << "----------------------" << std::endl;
+                std::cout << "Lea con atención el menú, elija la opción correspondiente mediante un número del 1-7" << std::endl;
+                std::cout << "1 permite agregar un dato al inventario" << std::endl;
+                std::cout << "2 permite actualizar un dato por medio de su ID" << std::endl;
+                std::cout << "3 permite eliminar un dato del inventario por medio de su ID" << std::endl;
+                std::cout << "4 permite ver el inventario completo" << std::endl;
+                std::cout << "5 permite buscar un dato individual por ID" << std::endl;
+                std::cout << "6 muestra el menú de ayuda" << std::endl;
+                std::cout << "7 permite salir del programa" << std::endl;
+                std::cout << "----------------------" << std::endl;
                 break;
+            case 7:
+                std::cout << "Saliendo del programa..." << std::endl;
             default:
                 std::cout << "Opcion invalida. Intente nuevamente." << std::endl;
                 break;
         }
-    } while (opcion != 6);
+    } while (opcion != 7);
 
     return 0;
 };
