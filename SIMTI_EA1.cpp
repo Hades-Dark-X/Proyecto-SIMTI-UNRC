@@ -272,6 +272,7 @@ int main() {
                 break;
             case 7:
                 std::cout << "Saliendo del programa..." << std::endl;
+                break;
             default:
                 std::cout << "Opcion invalida. Intente nuevamente." << std::endl;
                 break;
