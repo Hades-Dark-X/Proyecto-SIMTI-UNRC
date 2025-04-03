@@ -43,7 +43,7 @@ std::cin >> equipo.valor;
     std::cin.ignore();
 ```
 
-Funcion de y estructura condicional if, else if
+Funcion de mostrar inventario y estructura condicional if, else
 
 ```C++
 void mostrarInventario() {
@@ -167,4 +167,4 @@ std::string descripcion;
 
 Los cambios realizados se llevaron a cabo con la finalidad de darle legibilidad al código, eficiencia y mayor capacidad de escalabilidad hacia el futuro.
 
-En futuras versiones se agregará funcionalidad CRUD para que el sistema de inventario sea más robusto y versátil
+Actualmente el software cuenta con la funcionalidad CRUD
