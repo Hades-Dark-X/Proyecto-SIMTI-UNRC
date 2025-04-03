@@ -1,7 +1,8 @@
-/* Bibliotecas importadas para que el software duncione adecuadamente */
+/* Bibliotecas importadas para que el software funcione adecuadamente */
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream> 
 
 using namespace std;
 const char *nombre_archivo = "inventario.dat";
@@ -101,6 +102,92 @@ void agregarEquipo() {
     std::cout << "Equipo agregado al inventario correctamente." << std::endl;
 };
 
+void mostrarEquipoId(){
+    int buscarId;
+    std::cout << "ingresa el id del equipo que desea buscar: ";
+    std::cin >> buscarId;
+    std::cin.ignore();
+
+    bool encontrado = false;
+    for(const auto& equipo: inventario){
+        if (equipo.id_equipo == buscarId){
+            std::cout << "Equipo encontrado:" << std::endl;
+            std::cout << "ID: " << equipo.id_equipo << std::endl;
+            std::cout << "Descripcion: " << equipo.descripcion << std::endl;
+            std::cout << "Categoria: " << categoriaToString(equipo.categoria) << std::endl;
+            std::cout << "Estado: " << equipo.estado << std::endl;
+            std::cout << "Propietario: " << equipo.propietario << std::endl;
+            std::cout << "Fecha de compra: " << equipo.fecha_compra << std::endl;
+            std::cout << "Valor: " << equipo.valor << std::endl;
+            std::cout << "-------------------------" << std::endl;
+            encontrado = true;
+            break;
+        }else{
+            std::cout << "No se encontro ningun equipo con el ID que ingresaste: " << buscarId << std::endl;
+        }
+    }
+}
+
+
+void actualizarEquipo() {
+    int actualizarId;
+    std::cout << "Ingrese el ID del equipo que desea actualizar: ";
+    std::cin >> actualizarId;
+    std::cin.ignore();
+
+    for (auto& equipo : inventario) {
+        if (equipo.id_equipo == actualizarId) {
+            std::cout << "Equipo encontrado. Ingrese los nuevos datos:" << std::endl;
+
+            std::cout << "Ingrese la nueva descripcion del equipo: ";
+            std::getline(std::cin, equipo.descripcion);
+
+            std::cout << "-------------------------" << std::endl;
+            std::cout << "Categorias Disponibles" << std::endl;
+            std::cout << "Categoria 01: Equipos de diagnostico (ecografos y equipos de rayos X)." << std::endl;
+            std::cout << "Categoria 02: Equipos de tratamiento (respiradores y bombas de infusion)." << std::endl;
+            std::cout << "Categoria 03: Equipos de monitorizacion (monitores de signos vitales y electrocardiografos)." << std::endl;
+            std::cout << "Categoria 04: Instrumental quirurgico (como bisturis, pinzas y tijeras)." << std::endl;
+            std::cout << "Categoria 05: Equipos de laboratorio (como centrifugas y microscopios)." << std::endl;
+            std::cout << "Categoria 06: Mobiliario clinico (como camas, mesas hospitalarias y sillas de ruedas)." << std::endl;
+            std::cout << "Categoria 07: Dispositivos medicos especializados (marcapasos y protesis)." << std::endl;
+            std::cout << "-------------------------" << std::endl;
+
+            int categoriaSeleccionada;
+            do {
+                std::cout << "Ingrese la nueva categoria (Del 01 al 07): ";
+                std::cin >> categoriaSeleccionada;
+                std::cin.ignore();
+            } while (categoriaSeleccionada < 1 || categoriaSeleccionada > 7);
+            equipo.categoria = static_cast<categorias>(categoriaSeleccionada);
+
+            std::cout << "-------------------------" << std::endl;
+            std::cout << "Estados Disponibles" << std::endl;
+            std::cout << "OP: Operativo." << std::endl;
+            std::cout << "RE: Reparación." << std::endl;
+            std::cout << "FS: Fuera de Servicio." << std::endl;
+            std::cout << "-------------------------" << std::endl;
+            std::cout << "Ingrese el nuevo estado del equipo (OP, RE o FS): ";
+            std::getline(std::cin, equipo.estado);
+
+            std::cout << "Ingrese el nuevo propietario del equipo: ";
+            std::getline(std::cin, equipo.propietario);
+
+            std::cout << "Ingrese la nueva fecha de compra del equipo (dd-mm-yyyy): ";
+            std::getline(std::cin, equipo.fecha_compra);
+
+            std::cout << "Ingrese el nuevo valor de adquisicion del equipo: ";
+            std::cin >> equipo.valor;
+            std::cin.ignore();
+
+            std::cout << "Equipo actualizado correctamente." << std::endl;
+            return; // Salir de la función después de actualizar
+        }
+    }
+
+    std::cout << "No se encontro ningun equipo con el ID: " << actualizarId << std::endl;
+}
+
 void mostrarInventario() {
     if (inventario.empty()) {
         std::cout << "El inventario esta vacio." << std::endl;
@@ -124,8 +211,11 @@ int main() {
     do {
         std::cout << "Sistema de Inventario MedTech Innovations" << std::endl;
         std::cout << "1. Agregar equipo" << std::endl;
-        std::cout << "2. Mostrar inventario" << std::endl;
-        std::cout << "3. Salir" << std::endl;
+        std::cout << "2. Actualizar Equipo" << std::endl;
+        std::cout << "3. Eliminar equipo" << std::endl;
+        std::cout << "4. Mostrar inventario" << std::endl;
+        std::cout << "5. Ayuda" << std::endl;
+        std::cout << "6. Salir" << std::endl;
         std::cout << "Ingrese una opcion: ";
         std::cin >> opcion;
 
@@ -135,16 +225,25 @@ int main() {
                 agregarEquipo();
                 break;
             case 2:
-                mostrarInventario();
+            actualizarEquipo();
                 break;
             case 3:
+            std::cout << "Eliminar Equipo esta en desarrollo... Finalizado software" << std::endl;
+                break;
+            case 4:
+                mostrarInventario();
+                    break;
+            case 5:
+            std::cout << "Ayuda esta en desarrollo... Finalizado software" << std::endl;
+                break;
+            case 6:
                 std::cout << "Saliendo del programa..." << std::endl;
                 break;
             default:
                 std::cout << "Opcion invalida. Intente nuevamente." << std::endl;
                 break;
         }
-    } while (opcion != 3);
+    } while (opcion != 6);
 
     return 0;
 };
