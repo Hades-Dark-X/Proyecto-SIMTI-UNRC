@@ -112,6 +112,7 @@ void buscarEquipoId(){
     for(const auto& equipo: inventario){
         if (equipo.id_equipo == buscarId){
             std::cout << "Equipo encontrado:" << std::endl;
+            std::cout << "-------------------------" << std::endl;
             std::cout << "ID: " << equipo.id_equipo << std::endl;
             std::cout << "Descripcion: " << equipo.descripcion << std::endl;
             std::cout << "Categoria: " << categoriaToString(equipo.categoria) << std::endl;
@@ -138,6 +139,7 @@ void actualizarEquipo() {
     for (auto& equipo : inventario) {
         if (equipo.id_equipo == actualizarId) {
             std::cout << "Equipo encontrado. Ingrese los nuevos datos:" << std::endl;
+            std::cout << "-------------------------" << std::endl;
 
             std::cout << "Ingrese la nueva descripcion del equipo: ";
             std::getline(std::cin, equipo.descripcion);
