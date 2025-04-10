@@ -49,7 +49,7 @@ std::cin >> equipo.valor;
     std::cin.ignore();
 ```
 
-Funcion de y estructura condicional if, else if
+Funcion de mostrar inventario y estructura condicional if, else
 
 ```C++
 void mostrarInventario() {
@@ -173,13 +173,4 @@ std::string descripcion;
 
 Los cambios realizados se llevaron a cabo con la finalidad de darle legibilidad al código, eficiencia y mayor capacidad de escalabilidad hacia el futuro.
 
----
-
-Última actualización:
-
-- Se implementó la función de buscar equipo por medio del su ID
-- Se agregó la funcionalidad de actualizar equipo a través de su ID
-- En esta última versión podemos eliminar un equipo del inventario por ID
-- Se implementó la persistencia de datos mediante las funciones cargarInventario y GuardarInventario
-- Podemos acceder a un menú de ayuda para orientarnos sobre el manejo de la app
-- Se corrigieron errores estéticos que hacen la experiencia de usuario más amigable
+En futuras versiones se agregará funcionalidad CRUD para que el sistema de inventario sea más robusto y versátil
