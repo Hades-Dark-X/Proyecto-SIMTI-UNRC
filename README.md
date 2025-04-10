@@ -15,10 +15,10 @@ El software busca implementar una aplicación de terminal que le permita a la em
 - Si lo prefieres puedes trabajar con DevC++
   https://www.bloodshed.net/
 
--También puedes trabajar online con:
-https://www.jdoodle.com/online-compiler-c++
+- También puedes trabajar online con:
+  https://www.jdoodle.com/online-compiler-c++
 
-## https://www.onlinegdb.com/online_c++_compiler
+  https://www.onlinegdb.com/online_c++_compiler
 
 ### Ejemplos:
 
@@ -173,4 +173,13 @@ std::string descripcion;
 
 Los cambios realizados se llevaron a cabo con la finalidad de darle legibilidad al código, eficiencia y mayor capacidad de escalabilidad hacia el futuro.
 
-En futuras versiones se agregará funcionalidad CRUD para que el sistema de inventario sea más robusto y versátil
+---
+
+Última actualización:
+
+- Se implementó la función de buscar equipo por medio del su ID
+- Se agregó la funcionalidad de actualizar equipo a través de su ID
+- En esta última versión podemos eliminar un equipo del inventario por ID
+- Se implementó la persistencia de datos mediante las funciones cargarInventario y GuardarInventario
+- Podemos acceder a un menú de ayuda para orientarnos sobre el manejo de la app
+- Se corrigieron errores estéticos que hacen la experiencia de usuario más amigable
