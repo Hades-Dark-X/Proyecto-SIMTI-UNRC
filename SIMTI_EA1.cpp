@@ -7,7 +7,7 @@
 using namespace std;
 const char *nombre_archivo = "inventario.dat";
 
-/* áqui cree una enumeracción para manejar de mejor manera las categorias */
+/* Aquí cree una enumeracción para manejar de mejor manera las categorias */
 enum categorias {
     equiposDeDiagnostico = 1,
     equiposDeTratamiento,
@@ -45,7 +45,7 @@ std::string categoriaToString(categorias categoria) {
     }
 };
 
-/* áqui ordene un poco el código  de la función agregar equipo.
+/* Aquí ordene un poco el código  de la función agregar equipo.
  Para mayor legibilidad y ajuste la entradad de datos standard de strings a getline para que consuma los datos de manera adecuada */
 void agregarEquipo() {
     Equipo equipo;
@@ -68,8 +68,9 @@ void agregarEquipo() {
     std::cout << "Categoria 07: Dispositivos medicos especializados (marcapasos y protesis)." << std::endl;
     std::cout << "-------------------------" << std::endl;
 
-    /* para esta sección se uso un bucle do while para que compruebe primero si el usario ingreso un numero de categoria mayor de 1 y menor de 7.
-    Dependiendo de el valor ingresado es asignada a su categoria correspondiente. */
+    /* Para esta sección se uso un bucle do while para que compruebe primero si el usario ingreso un numero de categoria mayor de 1 y menor de 7.
+
+    Dependiendo del valor ingresado es asignada a su categoria correspondiente. */
     int categoriaSeleccionada;
     do {
         std::cout << "Ingrese una categoria (Del 01 al 07): ";
@@ -78,7 +79,7 @@ void agregarEquipo() {
     } while (categoriaSeleccionada < 1 || categoriaSeleccionada > 7);
     equipo.categoria = static_cast<categorias>(categoriaSeleccionada);
 
-/* para esta parte del código se respeto el código original, se estilizo un poco para mayor legibilidad y se ajusto el consumo de datos de entrada a getline */
+/* Para esta parte del código se respeto el código original, se estilizo un poco para mayor legibilidad y se ajusto el consumo de datos de entrada a getline */
     std::cout << "-------------------------" << std::endl;
     std::cout << "Estados Disponibles" << std::endl;
     std::cout << "OP: Operativo." << std::endl;
@@ -102,6 +103,7 @@ void agregarEquipo() {
     std::cout << "Equipo agregado al inventario correctamente." << std::endl;
 };
 
+/* Función Buscar equipo por ID */
 void buscarEquipoId(){
     int buscarId;
     std::cout << "ingresa el id del equipo que desea buscar: ";
@@ -129,7 +131,7 @@ void buscarEquipoId(){
     }
 }
 
-
+/* Función Actualizar equipo por ID */
 void actualizarEquipo() {
     int actualizarId;
     std::cout << "Ingrese el ID del equipo que desea actualizar: ";
@@ -190,6 +192,7 @@ void actualizarEquipo() {
     std::cout << "No se encontro ningun equipo con el ID: " << actualizarId << std::endl;
 }
 
+/* Función Eliminar equipo por ID */
 void eliminarEquipo() {
     int idEliminar;
     std::cout << "Ingrese el ID del equipo que desea eliminar: ";
@@ -207,6 +210,7 @@ void eliminarEquipo() {
     std::cout << "No se encontro ningun equipo con el ID: " << idEliminar << std::endl;
 }
 
+/* Función Mostrar inventario */
 void mostrarInventario() {
     if (inventario.empty()) {
         std::cout << "El inventario esta vacio." << std::endl;
@@ -226,8 +230,79 @@ void mostrarInventario() {
     }
 };
 
+/* Función Cargar inventario */
+void cargarInventario() {
+    std::ifstream archivo(nombre_archivo, std::ios::binary);
+    if (archivo.is_open()) {
+        while (archivo.peek() != EOF) {
+            Equipo equipo;
+            size_t len;
+
+            archivo.read(reinterpret_cast<char*>(&equipo.id_equipo), sizeof(equipo.id_equipo));
+
+            archivo.read(reinterpret_cast<char*>(&len), sizeof(len));
+            equipo.descripcion.resize(len);
+            archivo.read(&equipo.descripcion[0], len);
+
+            archivo.read(reinterpret_cast<char*>(&equipo.categoria), sizeof(equipo.categoria));
+
+            archivo.read(reinterpret_cast<char*>(&len), sizeof(len));
+            equipo.estado.resize(len);
+            archivo.read(&equipo.estado[0], len);
+
+            archivo.read(reinterpret_cast<char*>(&len), sizeof(len));
+            equipo.propietario.resize(len);
+            archivo.read(&equipo.propietario[0], len);
+
+            archivo.read(reinterpret_cast<char*>(&len), sizeof(len));
+            equipo.fecha_compra.resize(len);
+            archivo.read(&equipo.fecha_compra[0], len);
+
+            archivo.read(reinterpret_cast<char*>(&equipo.valor), sizeof(equipo.valor));
+
+            inventario.push_back(equipo);
+        }
+        archivo.close();
+        std::cout << "Inventario cargado desde " << nombre_archivo << std::endl;
+    } else {
+        std::cout << "No se encontro el archivo " << nombre_archivo << ". Se iniciara un inventario vacio." << std::endl;
+    }
+}
+
+/* Función Guardar inventario */
+void guardarInventario() {
+    std::ofstream archivo(nombre_archivo, std::ios::binary);
+    if (archivo.is_open()) {
+        for (const auto& equipo : inventario) {
+            archivo.write(reinterpret_cast<const char*>(&equipo.id_equipo), sizeof(equipo.id_equipo));
+            size_t len = equipo.descripcion.length();
+            archivo.write(reinterpret_cast<const char*>(&len), sizeof(len));
+            archivo.write(equipo.descripcion.c_str(), len);
+            archivo.write(reinterpret_cast<const char*>(&equipo.categoria), sizeof(equipo.categoria));
+            len = equipo.estado.length();
+            archivo.write(reinterpret_cast<const char*>(&len), sizeof(len));
+            archivo.write(equipo.estado.c_str(), len);
+            len = equipo.propietario.length();
+            archivo.write(reinterpret_cast<const char*>(&len), sizeof(len));
+            archivo.write(equipo.propietario.c_str(), len);
+            len = equipo.fecha_compra.length();
+            archivo.write(reinterpret_cast<const char*>(&len), sizeof(len));
+            archivo.write(equipo.fecha_compra.c_str(), len);
+            archivo.write(reinterpret_cast<const char*>(&equipo.valor), sizeof(equipo.valor));
+        }
+        archivo.close();
+        std::cout << "Guardando datos.. " << std::endl;
+        std::cout << "-------------------------" << std::endl;
+    } else {
+        std::cerr << "No se pudo abrir el archivo para guardar el inventario." << std::endl;
+    }
+}
+
+
 int main() {
     int opcion;
+    cargarInventario();
+
     do {
         std::cout << "--------------------------" << std::endl;
         std::cout << "Sistema de Inventario MedTech Innovations" << std::endl;
@@ -273,6 +348,7 @@ int main() {
                 std::cout << "----------------------" << std::endl;
                 break;
             case 7:
+                guardarInventario();
                 std::cout << "Saliendo del programa..." << std::endl;
                 break;
             default:
